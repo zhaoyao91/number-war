@@ -1,0 +1,18 @@
+{
+  "name": "number-war",
+  "private": true,
+  "scripts": {
+    "start": "meteor run"
+  },
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "lodash": "^4.13.1",
+    "meteor-node-stubs": "~0.2.0",
+    "react": "^15.1.0",
+    "react-addons-pure-render-mixin": "^15.1.0",
+    "react-bootstrap": "^0.29.4",
+    "react-dom": "^15.1.0",
+    "react-mounter": "^1.2.0",
+    "react-s-alert": "^1.1.4"
+  }
+}
