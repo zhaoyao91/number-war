@@ -11,6 +11,9 @@ import {FlowRouter} from 'meteor/kadira:flow-router';
 class Page extends React.Component {
     componentWillMount() {
         this.observeUserFight(this.props.user);
+
+        this.winAudio = new Audio('/audio/win.mp3');
+        this.loseAudio = new Audio('/audio/lose.mp3');
     }
 
     componentWillUpdate(nextProps) {
@@ -55,17 +58,18 @@ class Page extends React.Component {
             this.noLastFight = !_.get(Users.findOne({_id: userId}), 'lastFight');
             this.observer = Users.find({_id: userId}).observeChanges({
                 changed: (id, fields)=> {
-                    console.log(id, fields);
                     if (fields.lastFight) {
                         if (this.noLastFight) {
                             this.noLastFight = false;
                         }
                         else {
                             if (fields.lastFight.result === 'win') {
-                                Alert.success(`你战胜了${fields.lastFight.username}。`, {timeout: 2000})
+                                Alert.success(`你战胜了${fields.lastFight.username}。`, {timeout: 2000});
+                                this.winAudio.play();
                             }
                             else {
-                                Alert.info(`你败给了${fields.lastFight.username}。`, {timeout: 2000})
+                                Alert.info(`你败给了${fields.lastFight.username}。`, {timeout: 2000});
+                                this.loseAudio.play();
                             }
                         }
                     }
