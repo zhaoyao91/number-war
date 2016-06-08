@@ -1,12 +1,20 @@
 import React from 'react';
-import {Navbar, Nav, NavItem} from 'react-bootstrap';
+import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
 import Alert from 'react-s-alert';
 import {FlowRouter} from 'meteor/kadira:flow-router';
 import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
 import {ActiveRoute} from 'meteor/zimme:active-route';
+import ChangePasswordModal from '../app-comps/change-password-modal';
 
 class Layout extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showChangePasswordModal: false
+        }
+    }
+
     render() {
         const {main, user} = this.props;
 
@@ -27,7 +35,11 @@ class Layout extends React.Component {
                         </Nav>
                         {
                             user && <Nav pullRight>
-                                <NavItem href="#" onClick={this.logout.bind(this)}>退出</NavItem>
+                                <NavDropdown title="设置" id="basic-nav-dropdown">
+                                    <MenuItem href="#" onClick={()=>this.setState({showChangePasswordModal:true})}>修改密码</MenuItem>
+                                    <MenuItem href="#" onClick={()=>Meteor.logout()}>退出</MenuItem>
+                                    <ChangePasswordModal show={this.state.showChangePasswordModal} onClose={()=>this.setState({showChangePasswordModal:false})}/>
+                                </NavDropdown>
                             </Nav>
                         }
                     </Navbar.Collapse>
@@ -45,10 +57,6 @@ class Layout extends React.Component {
 
             </footer>
         </div>
-    }
-
-    logout() {
-        Meteor.logout();
     }
 
     goHome() {
