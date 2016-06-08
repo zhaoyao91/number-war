@@ -51,15 +51,12 @@ export default function () {
                     fightAt: now
                 },
                 score: winner.winCount + 1 - winner.loseCount,
-                dayScore: (dateUtils.inSameDay(winner.lastWinAt, now) ? winner.dayWinCount + 1 : 1) - (dateUtils.inSameDay(winner.lastLoseAt, now) ? winner.dayLoseCount : 0)
+                dayScore: winner.dayWinCount + 1 - winner.dayLoseCount
             };
             const winnerInc = {
-                winCount: 1
+                winCount: 1,
+                dayWinCount: 1
             };
-
-            if (dateUtils.inSameDay(winner.lastWinAt, now)) winnerInc.dayWinCount = 1;
-            else winnerSet.dayWinCount = 1;
-
             Users.update({_id: winner._id}, {
                 $set: winnerSet,
                 $inc: winnerInc
@@ -76,14 +73,12 @@ export default function () {
                     fightAt: now
                 },
                 score: loser.winCount - (loser.loseCount + 1),
-                dayScore: (dateUtils.inSameDay(loser.lastWinAt, now) ? loser.dayWinCount : 0) - (dateUtils.inSameDay(loser.lastLoseAt, now) ? loser.dayLoseCount + 1 : 0)
+                dayScore: loser.dayWinCount - (loser.dayLoseCount + 1)
             };
             const loserInc = {
-                loseCount: 1
+                loseCount: 1,
+                dayLoseCount: 1
             };
-            if (dateUtils.inSameDay(loser.lastLoseAt, now)) loserInc.dayLoseCount = 1;
-            else loserSet.dayLoseCount = 1;
-
             Users.update({_id: loser._id}, {
                 $set: loserSet,
                 $inc: loserInc
