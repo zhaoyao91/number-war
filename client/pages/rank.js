@@ -17,7 +17,7 @@ class Page extends React.Component {
                 <a href={FlowRouter.path('game')}>打一架呗~</a>
             </p>
 
-            <Tabs id="rank-tabs" animation={false}>
+            <Tabs id="rank-tabs">
                 <Tab eventKey={1} title="今日排行">
                     <ListGroup>
                         {dayRankList.map((user, index)=> {
