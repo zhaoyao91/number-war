@@ -8,6 +8,7 @@
     "bootstrap": "^3.3.6",
     "lodash": "^4.13.1",
     "meteor-node-stubs": "~0.2.0",
+    "node-schedule": "^1.1.0",
     "react": "^15.1.0",
     "react-addons-pure-render-mixin": "^15.1.0",
     "react-bootstrap": "^0.29.4",
