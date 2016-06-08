@@ -112,7 +112,7 @@ class UserNumberPanel extends React.Component {
                 style={{marginBottom: 0, backgroundColor: '#eeeeee', cursor: 'pointer'}}
                 onClick={this.openModal.bind(this)}>
                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                    <h1 style={{flexShrink: 1, overflow: 'hidden', textOverflow: 'ellipsis', marginRight: '20px', minWidth: 0}}>{_.get(user, 'username')}</h1>
+                    <h1 style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginRight: '20px', minWidth: 0}}>{_.get(user, 'username')}</h1>
                     <h1>{_.get(user, 'number')}</h1>
                 </div>
                 <UserGameInfoModal show={this.state.showModal} onClose={this.closeModal.bind(this)}
@@ -143,7 +143,7 @@ class TargetUserNumberItem extends React.Component {
 
         return <ListGroupItem style={{display: 'flex', justifyContent: 'space-between'}}
                               onClick={this.fight.bind(this, _.get(user, '_id'))}>
-            <h1 style={{overflow: 'hidden', textOverflow: 'ellipsis', marginRight: '20px', minWidth: 0}}>{_.get(user, 'username')}</h1>
+            <h1 style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginRight: '20px', minWidth: 0}}>{_.get(user, 'username')}</h1>
             <h1>{_.get(user, 'number')}</h1>
             <UserGameInfoModal show={this.state.showModal} onClose={this.closeModal.bind(this)}
                                userId={_.get(user, '_id')}/>
