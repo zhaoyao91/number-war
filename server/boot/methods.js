@@ -90,5 +90,5 @@ export default function () {
         userId: userId=>true,
         type: 'method',
         name: 'Game.fight'
-    }, 5, 1000);
+    }, 1, 1000);
 }
