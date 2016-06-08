@@ -5,20 +5,22 @@ import _ from 'lodash';
 import {Panel, ListGroup, ListGroupItem} from 'react-bootstrap';
 import Users from '../../common/collections/users';
 import Alert from 'react-s-alert';
-import {Tracker} from 'meteor/tracker';
 import UserGameInfoModal from '../app-comps/user-game-info-modal';
 import {FlowRouter} from 'meteor/kadira:flow-router';
 
 class Page extends React.Component {
-    componentDidMount() {
-        this.init = true;
-        this.autorun = Tracker.autorun(()=> {
-            this.observeUserFight();
-        });
+    componentWillMount() {
+        this.observeUserFight(this.props.user);
+    }
+
+    componentWillUpdate(nextProps) {
+        if (_.get(this.props.user, '_id') !== _.get(nextProps.user, '_id')) {
+            setTimeout(()=>this.observeUserFight(nextProps.user), 0);
+        }
     }
 
     componentWillUnmount() {
-        this.autorun.stop();
+        this.observer && this.observer.stop();
     }
 
     render() {
@@ -45,25 +47,31 @@ class Page extends React.Component {
         </div>
     }
 
-    observeUserFight() {
-        const userId = Meteor.userId();
-        Users.find({_id: userId}).observeChanges({
-            changed: (id, fields)=> {
-                if (id === userId && fields.lastFight) {
-                    if (this.init) {
-                        this.init = false;
-                    }
-                    else {
-                        if (fields.lastFight.result === 'win') {
-                            Alert.success(`你战胜了${fields.lastFight.username}。`, {timeout: 2000})
+    observeUserFight(user) {
+        const userId = _.get(user, '_id');
+
+        this.observer && this.observer.stop();
+        if (userId) {
+            this.noLastFight = !_.get(Users.findOne({_id: userId}), 'lastFight');
+            this.observer = Users.find({_id: userId}).observeChanges({
+                changed: (id, fields)=> {
+                    console.log(id, fields);
+                    if (fields.lastFight) {
+                        if (this.noLastFight) {
+                            this.noLastFight = false;
                         }
                         else {
-                            Alert.info(`你败给了${fields.lastFight.username}。`, {timeout: 2000})
+                            if (fields.lastFight.result === 'win') {
+                                Alert.success(`你战胜了${fields.lastFight.username}。`, {timeout: 2000})
+                            }
+                            else {
+                                Alert.info(`你败给了${fields.lastFight.username}。`, {timeout: 2000})
+                            }
                         }
                     }
                 }
-            }
-        });
+            });
+        }
     }
 }
 
