@@ -18,7 +18,7 @@ class Page extends React.Component {
         const {username, password} = this.state;
 
         return <div>
-            <h1 style={{textAlign: 'center'}}>数字战争</h1>
+            <h1 style={{textAlign: 'center'}}>数字大战</h1>
 
             <Panel style={{margin: 'auto', maxWidth: '400px', marginTop: '20px'}}>
                 <form onSubmit={e=>{e.preventDefault(); this.login()}}>
