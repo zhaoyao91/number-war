@@ -21,14 +21,14 @@ class Page extends React.Component {
                 <Tab eventKey={1} title="今日排行">
                     <ListGroup>
                         {dayRankList.map((user, index)=> {
-                            return <RankItem key={index} index={index+1} user={user}/>
+                            return <RankItem key={user._id} index={index+1} user={user}/>
                         })}
                     </ListGroup>
                 </Tab>
                 <Tab eventKey={2} title="历史排行">
                     <ListGroup>
                         {rankList.map((user, index)=> {
-                            return <RankItem key={index} index={index+1} user={user}/>
+                            return <RankItem key={user._id} index={index+1} user={user}/>
                         })}
                     </ListGroup>
                 </Tab>
