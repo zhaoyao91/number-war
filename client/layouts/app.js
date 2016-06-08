@@ -23,7 +23,7 @@ class Layout extends React.Component {
                         <Nav>
                             <NavItem active={ActiveRoute.name('rank')} href={FlowRouter.path('rank')}>排行榜</NavItem>
                             <NavItem active={ActiveRoute.name('game')} href={FlowRouter.path('game')}>战斗</NavItem>
-                            <NavItem active={ActiveRoute.name('help')} href={FlowRouter.path('help')}>帮助</NavItem>
+                            <NavItem active={ActiveRoute.name('help')} href={FlowRouter.path('help')}>训练营</NavItem>
                         </Nav>
                         {
                             user && <Nav pullRight>

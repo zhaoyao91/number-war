@@ -3,7 +3,7 @@ import React from 'react';
 class Page extends React.Component {
     render() {
         return <div>
-            <h1 style={{margin: '0 0 20px 0'}}>帮助</h1>
+            <h1 style={{margin: '0 0 20px 0'}}>训练营</h1>
             
             <h3>如何战斗？</h3>
             <p>在战斗页面，点击任意玩家，即可向他发起进攻！</p>
