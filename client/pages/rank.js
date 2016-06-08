@@ -3,6 +3,7 @@ import {Tabs, Tab, ListGroup, ListGroupItem} from 'react-bootstrap';
 import {createContainer} from 'meteor/react-meteor-data';
 import Users from '../../common/collections/users';
 import UserGameInfoModal from '../app-comps/user-game-info-modal';
+import {FlowRouter} from 'meteor/kadira:flow-router';
 
 class Page extends React.Component {
     render() {
@@ -10,7 +11,13 @@ class Page extends React.Component {
 
         return <div>
             <h1 style={{margin: '0 0 20px 0'}}>排行榜</h1>
-            <Tabs id="rank-tabs">
+
+            <p style={{marginBottom: '20px'}}>
+                不服气？
+                <a href={FlowRouter.path('game')}>打一架呗~</a>
+            </p>
+
+            <Tabs id="rank-tabs" animation={false}>
                 <Tab eventKey={1} title="今日排行">
                     <ListGroup>
                         {dayRankList.map((user, index)=> {

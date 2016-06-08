@@ -31,6 +31,8 @@ class Page extends React.Component {
 
             <p style={{marginBottom: '20px'}}>还不会玩？<a href={FlowRouter.path('help')}>赶紧学一把！</a></p>
 
+            <p style={{marginBottom: '20px'}}>打累了？<a href={FlowRouter.path('rank')}>看看排行~</a></p>
+
             <ListGroup style={{marginBottom: '101px'}}>
                 {
                     winners.map(winner=> {
@@ -129,8 +131,7 @@ class TargetUserNumberItem extends React.Component {
 
         return <ListGroupItem style={{display: 'flex', justifyContent: 'space-between'}}
                               onClick={this.fight.bind(this, _.get(user, '_id'))}>
-            <h1 onClick={e=>{e.stopPropagation();this.openModal()}}
-                style={{overflow: 'hidden', textOverflow: 'ellipsis', marginRight: '20px', minWidth: 0}}>{_.get(user, 'username')}</h1>
+            <h1 style={{overflow: 'hidden', textOverflow: 'ellipsis', marginRight: '20px', minWidth: 0}}>{_.get(user, 'username')}</h1>
             <h1>{_.get(user, 'number')}</h1>
             <UserGameInfoModal show={this.state.showModal} onClose={this.closeModal.bind(this)}
                                userId={_.get(user, '_id')}/>
