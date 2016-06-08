@@ -1,1 +1,1 @@
-FROM meteorhacks/meteord:onbuild
+FROM daocloud.io/zhaoyao91/meteord-onbuild
