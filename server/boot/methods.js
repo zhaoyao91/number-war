@@ -18,6 +18,13 @@ export default function () {
 
             // find target user
             const targetUser = Users.findOne({_id: targetUserId});
+            if (!targetUser) {
+                throw new Meteor.Error('no-target-user', 'cannot find target user');
+            }
+
+            if (user._id === targetUser._id) {
+                throw new Meteor.Error('same-user', 'user cannot fight with itself');
+            }
 
             // fight the game
             const win = gameUtils.fight(user.number, targetUser.number);
