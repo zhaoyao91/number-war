@@ -56,13 +56,11 @@ const schema = new SimpleSchema({
 
     winCount: {
         type: Number,
-        index: true,
         defaultValue: 0
     },
 
     loseCount: {
         type: Number,
-        index: true,
         defaultValue: 0
     },
 
@@ -74,13 +72,11 @@ const schema = new SimpleSchema({
 
     dayWinCount: {
         type: Number,
-        index: true,
         defaultValue: 0
     },
 
     dayLoseCount: {
         type: Number,
-        index: true,
         defaultValue: 0
     },
     
