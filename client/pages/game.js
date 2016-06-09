@@ -106,13 +106,21 @@ class UserNumberPanel extends React.Component {
 
     render() {
         const {user} = this.props;
+        const fightMode = _.get(user, 'fightMode');
 
         return <div className="container" style={{position: 'fixed', left: 0, right: 0, bottom: 0}}>
             <Panel
                 style={{marginBottom: 0, backgroundColor: '#eeeeee', cursor: 'pointer'}}
                 onClick={this.openModal.bind(this)}>
                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                    <h1 style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginRight: '20px', minWidth: 0}}>{_.get(user, 'username')}</h1>
+                    <h1 style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginRight: '20px', minWidth: 0}}>
+                        {
+                            !fightMode ? null
+                                : fightMode === 'smaller' ? '比小'
+                                : fightMode === 'bigger' ? '比大'
+                                : null
+                        }
+                    </h1>
                     <h1>{_.get(user, 'number')}</h1>
                 </div>
                 <UserGameInfoModal show={this.state.showModal} onClose={this.closeModal.bind(this)}

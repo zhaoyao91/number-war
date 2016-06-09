@@ -8,7 +8,8 @@ export default function () {
         }
 
         user.number = GameUtils.getNewNumber();
-
+        user.fightMode = GameUtils.getRandomFightMode();
+        
         return user;
     })
 }

@@ -1,7 +1,6 @@
 import Users from '../../common/collections/users';
 import {Meteor} from 'meteor/meteor';
 import gameUtils from '../../common/utils/game';
-import dateUtils from '../../common/utils/date';
 import {check} from 'meteor/check';
 import {DDPRateLimiter} from 'meteor/ddp-rate-limiter';
 
@@ -27,7 +26,7 @@ export default function () {
             }
 
             // fight the game
-            const win = gameUtils.fight(user.number, targetUser.number);
+            const win = gameUtils.fight(user.fightMode, user.number, targetUser.number);
             let winner, loser;
             if (win) {
                 winner = user;
@@ -43,6 +42,7 @@ export default function () {
             // update winner
             const winnerSet = {
                 number: gameUtils.updateWinNumber(winner.number, loser.number),
+                fightMode: gameUtils.getRandomFightMode(),
                 lastWinAt: now,
                 lastFight: {
                     result: 'win',
@@ -64,6 +64,7 @@ export default function () {
             // update loser
             const loserSet = {
                 number: gameUtils.updateLoseNumber(loser.number, winner.number),
+                fightMode: gameUtils.getRandomFightMode(),
                 lastLoseAt: now,
                 lastFight: {
                     result: 'lose',

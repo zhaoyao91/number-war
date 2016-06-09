@@ -1,14 +1,23 @@
-const NUMBER_LENGTH = 1e4;
+import _ from 'lodash';
+
+const NUMBER_LENGTH = 1e3;
 
 const utils = {
     getNewNumber() {
         return Math.floor(Math.random() * NUMBER_LENGTH);
     },
 
-    fight(attackNumber, defenceNumber) {
+    getRandomFightMode() {
+        return _.random(0, 1) ? 'smaller' : 'bigger';
+    },
+
+    fight(fightMode, attackNumber, defenceNumber) {
         const reducedAttackNumber = utils.reduceNumber(attackNumber);
         const reducedDefenceNumber = utils.reduceNumber(defenceNumber);
-        return reducedAttackNumber > reducedDefenceNumber;
+        
+        if (fightMode === 'bigger') return reducedAttackNumber > reducedDefenceNumber;
+        else if (fightMode === 'smaller') return reducedAttackNumber < reducedDefenceNumber;
+        else return false;
     },
 
     reduceNumber(number) {

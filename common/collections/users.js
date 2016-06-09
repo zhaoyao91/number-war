@@ -43,6 +43,11 @@ const schema = new SimpleSchema({
     number: {
         type: Number
     },
+    
+    fightMode: {
+        type: String,
+        allowedValues: ['bigger', 'smaller']
+    },
 
     winCount: {
         type: Number,

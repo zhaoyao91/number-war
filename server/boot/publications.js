@@ -28,6 +28,7 @@ export default function () {
         return Users.find({_id: userId}, {
             fields: {
                 number: 1,
+                fightMode: 1,
                 winCount: 1,
                 loseCount: 1,
                 dayWinCount: 1,

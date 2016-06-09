@@ -50,7 +50,7 @@ class Layout extends React.Component {
                 <div className="container">
                     {main}
                 </div>
-                <Alert stack={{limit: 3}} effect="scale" position="bottom-left"/>
+                <Alert stack={{limit: 3}} effect="scale" position="top-left"/>
             </main>
 
             <footer>
