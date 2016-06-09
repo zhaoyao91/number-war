@@ -15,7 +15,9 @@ class Page extends React.Component {
             <hr/>
 
             <h3>什么是战斗数字？</h3>
-            <p>将显示数字的每一位相加后，得到的数字的个位部分，即为战斗数字，列如，若显示数字为357，则3+5+7=1<span style={{color: 'red'}}>5</span>，因此，其对应的战斗数字为<span style={{color: 'red'}}>5</span>。</p>
+            <p>将显示数字的每一位相加后，得到的数字的个位部分，即为战斗数字，例如，若显示数字为357，则3+5+7=1<span style={{color: 'red'}}>5</span>，因此，其对应的战斗数字为<span style={{color: 'red'}}>5</span>。</p>
+
+            <hr/>
 
             <h3>什么是战斗模式？</h3>
             <p>个人战斗状态栏左边显示的即为自己的战斗模式，可能是“比大”或“比小”</p>
