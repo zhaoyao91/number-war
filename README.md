@@ -10,7 +10,7 @@ Download this repo and
 `meteor`
 
 ## Available Environment Variables
-- CLEAR_DAY_COUNTS - app will clear day counts of users at 00:00:00 everyday if set 1
+- CLEAR_DAY_COUNTS_CRONTIME - app will clear day counts of users by this cron time
 
 ## License
 MIT
