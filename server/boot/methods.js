@@ -44,7 +44,6 @@ export default function () {
             const winnerSet = {
                 number: gameUtils.updateWinNumber(winner.number, loser.number),
                 lastWinAt: now,
-                lastFightAt: now,
                 lastFight: {
                     result: 'win',
                     username: loser.username,
@@ -66,7 +65,6 @@ export default function () {
             const loserSet = {
                 number: gameUtils.updateLoseNumber(loser.number, winner.number),
                 lastLoseAt: now,
-                lastFightAt: now,
                 lastFight: {
                     result: 'lose',
                     username: winner.username,

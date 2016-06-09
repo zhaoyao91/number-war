@@ -14,7 +14,6 @@ export default function () {
                 // dayLoseCount: 1,
                 lastWinAt: 1,
                 // lastLoseAt: 1,
-                // lastFightAt: 1,
                 // lastFight: 1
             },
             sort: {
@@ -35,7 +34,6 @@ export default function () {
                 dayLoseCount: 1,
                 lastWinAt: 1,
                 lastLoseAt: 1,
-                lastFightAt: 1,
                 lastFight: 1,
                 score: 1,
                 dayScore: 1
@@ -54,7 +52,6 @@ export default function () {
                 // dayLoseCount: 1,
                 // lastWinAt: 1,
                 // lastLoseAt: 1,
-                // lastFightAt: 1,
                 // lastFight: 1,
                 score: 1,
                 dayScore: 1
@@ -77,7 +74,6 @@ export default function () {
                 // dayLoseCount: 1,
                 // lastWinAt: 1,
                 // lastLoseAt: 1,
-                // lastFightAt: 1,
                 // lastFight: 1,
                 score: 1,
                 dayScore: 1

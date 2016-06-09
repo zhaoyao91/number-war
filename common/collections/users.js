@@ -92,12 +92,6 @@ const schema = new SimpleSchema({
         index: true
     },
 
-    lastFightAt: {
-        type: Date,
-        optional: true,
-        index: true
-    },
-
     lastFight: {
         type: new SimpleSchema({
             result: {
