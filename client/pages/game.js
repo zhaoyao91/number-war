@@ -40,8 +40,8 @@ class Page extends React.Component {
 
             <ListGroup style={{marginBottom: '101px'}}>
                 {
-                    fighters.map(fighter=> {
-                        return <TargetUserNumberItem key={fighter._id} user={fighter}/>
+                    fighters.map((fighter, index)=> {
+                        return <TargetUserNumberItem key={index} index={index+1} user={fighter}/>
                     })
                 }
             </ListGroup>
@@ -147,11 +147,12 @@ class TargetUserNumberItem extends React.Component {
     }
 
     render() {
-        const {user} = this.props;
+        const {index, user} = this.props;
 
         return <ListGroupItem style={{display: 'flex', justifyContent: 'space-between'}}
                               onClick={this.fight.bind(this, _.get(user, '_id'))}>
-            <h1 style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginRight: '20px', minWidth: 0}}>{_.get(user, 'username')}</h1>
+            <h1 onClick={e=>{e.stopPropagation();this.openModal()}}
+                style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginRight: '20px', minWidth: 0}}>{index + '. ' + _.get(user, 'username')}</h1>
             <h1>{_.get(user, 'number')}</h1>
             <UserGameInfoModal show={this.state.showModal} onClose={this.closeModal.bind(this)}
                                userId={_.get(user, '_id')}/>
