@@ -49,6 +49,11 @@ const schema = new SimpleSchema({
         allowedValues: ['bigger', 'smaller']
     },
 
+    fightOrder: {
+        type: Number,
+        index: true
+    },
+
     winCount: {
         type: Number,
         index: true,
@@ -87,14 +92,12 @@ const schema = new SimpleSchema({
 
     lastWinAt: {
         type: Date,
-        optional: true,
-        index: true
+        optional: true
     },
 
     lastLoseAt: {
         type: Date,
-        optional: true,
-        index: true
+        optional: true
     },
 
     lastFight: {

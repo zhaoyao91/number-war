@@ -27,7 +27,7 @@ class Page extends React.Component {
     }
 
     render() {
-        const {user, winners} = this.props;
+        const {user, fighters} = this.props;
 
         const number = _.get(user, 'number');
 
@@ -40,8 +40,8 @@ class Page extends React.Component {
 
             <ListGroup style={{marginBottom: '101px'}}>
                 {
-                    winners.map(winner=> {
-                        return <TargetUserNumberItem key={winner._id} user={winner}/>
+                    fighters.map(fighter=> {
+                        return <TargetUserNumberItem key={fighter._id} user={fighter}/>
                     })
                 }
             </ListGroup>
@@ -84,13 +84,13 @@ const Container = createContainer((props)=> {
     const userId = _.get(user, '_id', '');
 
     Meteor.subscribe('Users.gameData', userId);
-    Meteor.subscribe('Users.latestWinners');
+    Meteor.subscribe('Users.fighters');
 
-    const winners = Users.find({_id: {$ne: userId}}, {sort: {lastWinAt: -1}}).fetch();
+    const fighters = Users.find({_id: {$ne: userId}}, {sort: {fightOrder: -1}}).fetch();
 
     return {
         user: user,
-        winners: winners
+        fighters: fighters
     }
 }, Page);
 

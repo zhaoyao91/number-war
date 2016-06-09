@@ -3,6 +3,7 @@ import {Meteor} from 'meteor/meteor';
 import gameUtils from '../../common/utils/game';
 import {check} from 'meteor/check';
 import {DDPRateLimiter} from 'meteor/ddp-rate-limiter';
+import _ from 'lodash';
 
 export default function () {
     Meteor.methods({
@@ -43,6 +44,7 @@ export default function () {
             const winnerSet = {
                 number: gameUtils.updateWinNumber(winner.number, loser.number),
                 fightMode: gameUtils.getRandomFightMode(),
+                fightOrder: now.getTime() - _.result(winner, 'lastLoseAt.getTime', 0),
                 lastWinAt: now,
                 lastFight: {
                     result: 'win',
@@ -65,6 +67,7 @@ export default function () {
             const loserSet = {
                 number: gameUtils.updateLoseNumber(loser.number, winner.number),
                 fightMode: gameUtils.getRandomFightMode(),
+                fightOrder: _.result(loser, 'lastWinAt.getTime', 0) - now.getTime(),
                 lastLoseAt: now,
                 lastFight: {
                     result: 'lose',

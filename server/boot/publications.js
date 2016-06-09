@@ -3,21 +3,22 @@ import {Meteor} from 'meteor/meteor';
 import {check} from 'meteor/check';
 
 export default function () {
-    Meteor.publish('Users.latestWinners', function () {
+    Meteor.publish('Users.fighters', function () {
         return Users.find({}, {
             fields: {
                 username: 1,
                 number: 1,
+                fightOrder: 1,
                 // winCount: 1,
                 // loseCount: 1,
                 // dayWinCount: 1,
                 // dayLoseCount: 1,
-                lastWinAt: 1,
+                // lastWinAt: 1,
                 // lastLoseAt: 1,
                 // lastFight: 1
             },
             sort: {
-                lastWinAt: -1
+                fightOrder: -1
             },
             limit: 100
         })
