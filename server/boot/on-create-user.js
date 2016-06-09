@@ -9,6 +9,7 @@ export default function () {
 
         user.number = GameUtils.getNewNumber();
         user.fightMode = GameUtils.getRandomFightMode();
+        user.fightOrder = 0;
         
         return user;
     })
