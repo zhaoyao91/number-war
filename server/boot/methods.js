@@ -22,6 +22,21 @@ export default function () {
             });
         },
 
+        'Users.setAvatar'(avatar) {
+            check(avatar, String);
+
+            const userId = Meteor.userId();
+            if (!userId) {
+                throw new Meteor.Error('not-login', 'user is not logged-in');
+            }
+
+            Users.update({_id: userId}, {
+                $set: {
+                    avatar: avatar
+                }
+            });
+        },
+        
         'Game.fight'(targetUserId) {
             check(targetUserId, String);
 

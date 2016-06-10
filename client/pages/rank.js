@@ -62,7 +62,7 @@ class RankItem extends React.Component {
         const {index, user} = this.props;
 
         return <ListGroupItem onClick={this.openModal.bind(this)} style={{display: 'flex', alignItems: 'stretch'}}>
-            <img style={{width: '100%', height: '100%', maxWidth: '60px', marginRight: '10px'}}
+            <img className="img-circle" style={{width: '60px', height: '60px', marginRight: '10px'}}
                  src={userUtils.getAvatarUrl(user)}/>
             <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-around', overflow: 'hidden'}}>
                 <h3 style={{margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>{index}. {_.get(user, 'nickname')}</h3>

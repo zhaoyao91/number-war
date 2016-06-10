@@ -37,6 +37,7 @@ class Layout extends React.Component {
                             user && <Nav pullRight>
                                 <NavDropdown title="设置" id="basic-nav-dropdown">
                                     <MenuItem href="#" onClick={this.setNickname.bind(this)}>修改昵称</MenuItem>
+                                    <MenuItem href="#" onClick={this.setAvatar.bind(this)}>修改头像</MenuItem>
                                     <MenuItem href="#"
                                               onClick={()=>this.setState({showChangePasswordModal:true})}>修改密码</MenuItem>
                                     <MenuItem href="#" onClick={()=>Meteor.logout()}>退出</MenuItem>
@@ -77,6 +78,22 @@ class Layout extends React.Component {
             }
             else {
                 Alert.success('昵称设置成功。')
+            }
+        })
+    }
+
+    setAvatar() {
+        let avatar = prompt('请输入头像URL');
+        if (typeof avatar === 'string') avatar = avatar.trim();
+        else return;
+
+        Meteor.call('Users.setAvatar', avatar, err=> {
+            if (err) {
+                console.error(err);
+                Alert.error('头像设置失败。')
+            }
+            else {
+                Alert.success('头像设置成功。')
             }
         })
     }

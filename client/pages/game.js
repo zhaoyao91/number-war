@@ -154,8 +154,8 @@ class TargetUserNumberItem extends React.Component {
                               onClick={this.fight.bind(this, _.get(user, '_id'))}>
             <div style={{display: 'flex', alignItems: 'center', overflow: 'hidden'}}>
                 <span style={{position: 'absolute', fontSize: '0.8rem', top: 0, left: '2px'}}>{index}</span>
-                <img onClick={e=>{e.stopPropagation();this.openModal()}}
-                     style={{width: '100%', height: '100%', maxWidth: '48px', marginRight: '5px'}}
+                <img className="img-circle" onClick={e=>{e.stopPropagation();this.openModal()}}
+                     style={{width: '48px', height: '48px', marginRight: '5px'}}
                      src={userUtils.getAvatarUrl(user)}/>
                 <h1 style={{margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginRight: '5px', minWidth: 0}}>
                     {_.get(user, 'nickname')}
