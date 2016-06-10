@@ -8,6 +8,8 @@ import Alert from 'react-s-alert';
 import UserGameInfoModal from '../app-comps/user-game-info-modal';
 import {FlowRouter} from 'meteor/kadira:flow-router';
 import userUtils from '../../common/utils/user';
+import {Session} from 'meteor/session';
+import Const from '../../common/const';
 
 class Page extends React.Component {
     componentWillMount() {
@@ -28,7 +30,7 @@ class Page extends React.Component {
     }
 
     render() {
-        const {user, fighters} = this.props;
+        const {user, fighters, allowFight} = this.props;
 
         const number = _.get(user, 'number');
 
@@ -42,7 +44,7 @@ class Page extends React.Component {
             <ListGroup style={{marginBottom: '101px'}}>
                 {
                     fighters.map((fighter, index)=> {
-                        return <TargetUserNumberItem key={index} index={index+1} user={fighter}/>
+                        return <TargetUserNumberItem allowFight={allowFight} key={index} index={index+1} user={fighter}/>
                     })
                 }
             </ListGroup>
@@ -65,11 +67,11 @@ class Page extends React.Component {
                         }
                         else {
                             if (fields.lastFight.result === 'win') {
-                                Alert.success(`你战胜了${fields.lastFight.nickname}。`, {timeout: 2000});
+                                Alert.success(`你战胜了${fields.lastFight.nickname}。`, {timeout: 1000});
                                 this.winAudio.play();
                             }
                             else {
-                                Alert.info(`你败给了${fields.lastFight.nickname}。`, {timeout: 2000});
+                                Alert.info(`你败给了${fields.lastFight.nickname}。`, {timeout: 1000});
                                 this.loseAudio.play();
                             }
                         }
@@ -91,8 +93,9 @@ const Container = createContainer((props)=> {
 
     return {
         user: user,
-        fighters: fighters
-    }
+        fighters: fighters,
+        allowFight: Session.get('allowFight')
+    };
 }, Page);
 
 export default Container;
@@ -148,10 +151,10 @@ class TargetUserNumberItem extends React.Component {
     }
 
     render() {
-        const {index, user} = this.props;
+        const {index, user, allowFight} = this.props;
 
         return <ListGroupItem style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}
-                              onClick={this.fight.bind(this, _.get(user, '_id'))}>
+                              onClick={this.fight.bind(this, _.get(user, '_id'))} disabled={!allowFight}>
             <div style={{display: 'flex', alignItems: 'center', overflow: 'hidden'}}>
                 <span style={{position: 'absolute', fontSize: '0.8rem', top: 0, left: '2px'}}>{index}</span>
                 <img className="img-circle" onClick={e=>{e.stopPropagation();this.openModal()}}
@@ -176,10 +179,12 @@ class TargetUserNumberItem extends React.Component {
     }
 
     fight(userId) {
+        Session.set('allowFight', false);
         Meteor.call('Game.fight', userId, new Date, (err, win)=> {
+            setTimeout(()=>Session.set('allowFight', true), Const.fightInterval);
             if (err) {
                 if (err.error === 'too-many-requests') {
-                    Alert.error('这也太快了吧>w<', {timeout: 2000})
+                    Alert.error('这也太快了吧>w<', {timeout: 1000})
                 }
                 else {
                     Alert.error('游戏失败。');

@@ -4,6 +4,7 @@ import gameUtils from '../../common/utils/game';
 import {check} from 'meteor/check';
 import {DDPRateLimiter} from 'meteor/ddp-rate-limiter';
 import _ from 'lodash';
+import Const from '../../common/const';
 
 export default function () {
     Meteor.methods({
@@ -122,5 +123,5 @@ export default function () {
         userId: userId=>true,
         type: 'method',
         name: 'Game.fight'
-    }, 1, 1000);
+    }, 1, Const.fightInterval);
 }
