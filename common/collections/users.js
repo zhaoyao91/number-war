@@ -40,6 +40,10 @@ const schema = new SimpleSchema({
 
     // game data
 
+    nickname: {
+        type: String
+    },
+    
     number: {
         type: Number
     },

@@ -61,7 +61,7 @@ class RankItem extends React.Component {
         const {index, user} = this.props;
 
         return <ListGroupItem onClick={this.openModal.bind(this)}>
-            <h3>{index}. {_.get(user, 'username')}</h3>
+            <h3>{index}. {_.get(user, 'nickname')}</h3>
             <p style={{overflow: 'auto'}}>
                 <span style={{float: 'left', marginRight: '20px'}}>今日得分：{_.get(user, 'dayScore')}</span>
                 <span style={{float: 'left'}}>历史得分：{_.get(user, 'score')}</span>

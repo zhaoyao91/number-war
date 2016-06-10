@@ -64,11 +64,11 @@ class Page extends React.Component {
                         }
                         else {
                             if (fields.lastFight.result === 'win') {
-                                Alert.success(`你战胜了${fields.lastFight.username}。`, {timeout: 2000});
+                                Alert.success(`你战胜了${fields.lastFight.nickname}。`, {timeout: 2000});
                                 this.winAudio.play();
                             }
                             else {
-                                Alert.info(`你败给了${fields.lastFight.username}。`, {timeout: 2000});
+                                Alert.info(`你败给了${fields.lastFight.nickname}。`, {timeout: 2000});
                                 this.loseAudio.play();
                             }
                         }
@@ -153,7 +153,7 @@ class TargetUserNumberItem extends React.Component {
                               onClick={this.fight.bind(this, _.get(user, '_id'))}>
             <h1 style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginRight: '20px', minWidth: 0}}>
                 <span onClick={e=>{e.stopPropagation();this.openModal()}}>{index + '. '}</span>
-                {_.get(user, 'username')}
+                {_.get(user, 'nickname')}
             </h1>
             <h1>{_.get(user, 'number')}</h1>
             <UserGameInfoModal show={this.state.showModal} onClose={this.closeModal.bind(this)}

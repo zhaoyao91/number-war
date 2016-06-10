@@ -6,7 +6,7 @@ export default function () {
     Meteor.publish('Users.fighters', function () {
         return Users.find({}, {
             fields: {
-                username: 1,
+                nickname: 1,
                 number: 1,
                 fightOrder: 1,
                 // winCount: 1,
@@ -46,7 +46,7 @@ export default function () {
     Meteor.publish('Users.top100', function () {
         return Users.find({}, {
             fields: {
-                username: 1,
+                nickname: 1,
                 // number: 1,
                 // winCount: 1,
                 // loseCount: 1,
@@ -68,7 +68,7 @@ export default function () {
     Meteor.publish('Users.dayTop100', function () {
         return Users.find({}, {
             fields: {
-                username: 1,
+                nickname: 1,
                 // number: 1,
                 // winCount: 1,
                 // loseCount: 1,

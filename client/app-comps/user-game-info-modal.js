@@ -10,7 +10,7 @@ class Comp extends React.Component {
 
         return <Modal show={show} onHide={onClose}>
             <Modal.Header closeButton>
-                <Modal.Title>{_.get(user, 'username')}</Modal.Title>
+                <Modal.Title>{_.get(user, 'nickname')}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <p>今日战胜：{_.get(user, 'dayWinCount', 0)}</p>
