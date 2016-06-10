@@ -97,7 +97,7 @@ const Container = createContainer((props)=> {
     Meteor.subscribe('Users.gameData', userId);
     Meteor.subscribe('Users.fighters');
 
-    const fighters = Users.find({_id: {$ne: userId}}, {sort: {fightOrder: -1}, limit: 100}).fetch();
+    const fighters = Users.find({_id: {$ne: userId}}, {sort: {fightOrder: -1}, limit: 99}).fetch();
 
     return {
         user: user,
