@@ -37,7 +37,7 @@ export default function () {
             });
         },
         
-        'Game.fight'(targetUserId) {
+        'Game.fight'(targetUserId, now) {
             check(targetUserId, String);
 
             // check login
@@ -68,12 +68,10 @@ export default function () {
                 loser = user;
             }
 
-            const now = new Date;
-
             // update winner
             const winnerSet = {
                 number: gameUtils.updateWinNumber(winner.number, loser.number),
-                fightMode: gameUtils.getRandomFightMode(),
+                fightMode: gameUtils.getNextFightMode(winner.number, loser.number),
                 fightOrder: now.getTime() - _.result(winner, 'lastLoseAt.getTime', 0),
                 lastWinAt: now,
                 lastFight: {
@@ -96,7 +94,7 @@ export default function () {
             // update loser
             const loserSet = {
                 number: gameUtils.updateLoseNumber(loser.number, winner.number),
-                fightMode: gameUtils.getRandomFightMode(),
+                fightMode: gameUtils.getNextFightMode(loser.number, winner.number),
                 fightOrder: _.result(loser, 'lastWinAt.getTime', 0) - now.getTime(),
                 lastLoseAt: now,
                 lastFight: {

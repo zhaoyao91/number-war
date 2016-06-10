@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import Random from 'seed-random';
 
 const NUMBER_LENGTH = 1e3;
 
@@ -8,13 +9,17 @@ const utils = {
     },
 
     getRandomFightMode() {
-        return _.random(0, 1) ? 'smaller' : 'bigger';
+        return Math.random() > 0.5 ? 'bigger' : 'smaller';
+    },
+
+    getNextFightMode(myNumber, targetNumber) {
+        return Random(myNumber * 3 + targetNumber + 7)() > 0.5 ? 'bigger' : 'smaller';
     },
 
     fight(fightMode, attackNumber, defenceNumber) {
         const reducedAttackNumber = utils.reduceNumber(attackNumber);
         const reducedDefenceNumber = utils.reduceNumber(defenceNumber);
-        
+
         if (fightMode === 'bigger') return reducedAttackNumber > reducedDefenceNumber;
         else if (fightMode === 'smaller') return reducedAttackNumber < reducedDefenceNumber;
         else return false;
@@ -38,11 +43,15 @@ const utils = {
     },
 
     updateWinNumber(winNumber, loseNumber) {
-        return (winNumber + loseNumber) % NUMBER_LENGTH;
+        return utils.floatToInteger(Random(winNumber + loseNumber)());
     },
 
     updateLoseNumber(loseNumber, winNumber) {
-        return Math.abs(winNumber - loseNumber) % NUMBER_LENGTH;
+        return utils.floatToInteger(Random(winNumber - loseNumber)());
+    },
+
+    floatToInteger(float) {
+        return Math.floor(float * NUMBER_LENGTH);
     }
 };
 

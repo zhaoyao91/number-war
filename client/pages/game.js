@@ -176,7 +176,7 @@ class TargetUserNumberItem extends React.Component {
     }
 
     fight(userId) {
-        Meteor.call('Game.fight', userId, (err, win)=> {
+        Meteor.call('Game.fight', userId, new Date, (err, win)=> {
             if (err) {
                 if (err.error === 'too-many-requests') {
                     Alert.error('这也太快了吧>w<', {timeout: 2000})
