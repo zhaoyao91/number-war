@@ -63,7 +63,7 @@ export default function () {
                 lastWinAt: now,
                 lastFight: {
                     result: 'win',
-                    username: loser.username,
+                    nickname: loser.nickname,
                     fightAt: now
                 },
                 score: winner.winCount + 1 - winner.loseCount,
@@ -86,7 +86,7 @@ export default function () {
                 lastLoseAt: now,
                 lastFight: {
                     result: 'lose',
-                    username: winner.username,
+                    nickname: winner.nickname,
                     fightAt: now
                 },
                 score: loser.winCount - (loser.loseCount + 1),

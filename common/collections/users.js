@@ -111,7 +111,7 @@ const schema = new SimpleSchema({
                 type: String,
                 allowedValues: ['win', 'lose']
             },
-            username: {
+            nickname: {
                 type: String
             },
             fightAt: {
