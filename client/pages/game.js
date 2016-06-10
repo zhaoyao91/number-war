@@ -153,7 +153,7 @@ class TargetUserNumberItem extends React.Component {
         return <ListGroupItem style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}
                               onClick={this.fight.bind(this, _.get(user, '_id'))}>
             <div style={{display: 'flex', alignItems: 'center', overflow: 'hidden'}}>
-                <span style={{position: 'absolute', fontSize: '0.8rem', top: '2px', left: '2px'}}>{index}</span>
+                <span style={{position: 'absolute', fontSize: '0.8rem', top: 0, left: '2px'}}>{index}</span>
                 <img onClick={e=>{e.stopPropagation();this.openModal()}}
                      style={{width: '100%', height: '100%', maxWidth: '48px', marginRight: '5px'}}
                      src={userUtils.getAvatarUrl(user)}/>
