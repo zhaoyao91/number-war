@@ -7,6 +7,7 @@ import Users from '../../common/collections/users';
 import Alert from 'react-s-alert';
 import UserGameInfoModal from '../app-comps/user-game-info-modal';
 import {FlowRouter} from 'meteor/kadira:flow-router';
+import userUtils from '../../common/utils/user';
 
 class Page extends React.Component {
     componentWillMount() {
@@ -149,13 +150,18 @@ class TargetUserNumberItem extends React.Component {
     render() {
         const {index, user} = this.props;
 
-        return <ListGroupItem style={{display: 'flex', justifyContent: 'space-between'}}
+        return <ListGroupItem style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}
                               onClick={this.fight.bind(this, _.get(user, '_id'))}>
-            <h1 style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginRight: '20px', minWidth: 0}}>
-                <span onClick={e=>{e.stopPropagation();this.openModal()}}>{index + '. '}</span>
-                {_.get(user, 'nickname')}
-            </h1>
-            <h1>{_.get(user, 'number')}</h1>
+            <div style={{display: 'flex', alignItems: 'center', overflow: 'hidden'}}>
+                <span style={{position: 'absolute', fontSize: '0.8rem', top: '2px', left: '2px'}}>{index}</span>
+                <img onClick={e=>{e.stopPropagation();this.openModal()}}
+                     style={{width: '100%', height: '100%', maxWidth: '48px', marginRight: '5px'}}
+                     src={userUtils.getAvatarUrl(user)}/>
+                <h1 style={{margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginRight: '5px', minWidth: 0}}>
+                    {_.get(user, 'nickname')}
+                </h1>
+            </div>
+            <h1 style={{margin: 0}}>{_.get(user, 'number')}</h1>
             <UserGameInfoModal show={this.state.showModal} onClose={this.closeModal.bind(this)}
                                userId={_.get(user, '_id')}/>
         </ListGroupItem>

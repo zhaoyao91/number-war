@@ -44,6 +44,11 @@ const schema = new SimpleSchema({
         type: String
     },
     
+    avatar: {
+        type: String,
+        optional: true
+    },
+    
     number: {
         type: Number
     },

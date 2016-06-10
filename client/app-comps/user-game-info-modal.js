@@ -33,7 +33,7 @@ const Container = createContainer(props=> {
     Meteor.subscribe('Users.gameData', userId);
     return {
         user: Users.findOne({_id: userId})
-    };    
+    };
 }, Comp);
 
 export default Container;

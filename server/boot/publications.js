@@ -7,6 +7,7 @@ export default function () {
         return Users.find({}, {
             fields: {
                 nickname: 1,
+                avatar: 1,
                 number: 1,
                 fightOrder: 1,
                 // winCount: 1,
@@ -29,6 +30,7 @@ export default function () {
         return Users.find({_id: userId}, {
             fields: {
                 number: 1,
+                avatar: 1,
                 fightMode: 1,
                 winCount: 1,
                 loseCount: 1,
@@ -47,6 +49,7 @@ export default function () {
         return Users.find({}, {
             fields: {
                 nickname: 1,
+                avatar: 1,
                 // number: 1,
                 // winCount: 1,
                 // loseCount: 1,
@@ -69,6 +72,7 @@ export default function () {
         return Users.find({}, {
             fields: {
                 nickname: 1,
+                avatar: 1,
                 // number: 1,
                 // winCount: 1,
                 // loseCount: 1,

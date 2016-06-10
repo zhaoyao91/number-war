@@ -4,6 +4,7 @@ import {createContainer} from 'meteor/react-meteor-data';
 import Users from '../../common/collections/users';
 import UserGameInfoModal from '../app-comps/user-game-info-modal';
 import {FlowRouter} from 'meteor/kadira:flow-router';
+import userUtils from '../../common/utils/user';
 
 class Page extends React.Component {
     render() {
@@ -60,12 +61,16 @@ class RankItem extends React.Component {
     render() {
         const {index, user} = this.props;
 
-        return <ListGroupItem onClick={this.openModal.bind(this)}>
-            <h3>{index}. {_.get(user, 'nickname')}</h3>
-            <p style={{overflow: 'auto'}}>
-                <span style={{float: 'left', marginRight: '20px'}}>今日得分：{_.get(user, 'dayScore')}</span>
-                <span style={{float: 'left'}}>历史得分：{_.get(user, 'score')}</span>
-            </p>
+        return <ListGroupItem onClick={this.openModal.bind(this)} style={{display: 'flex', alignItems: 'stretch'}}>
+            <img style={{width: '100%', height: '100%', maxWidth: '60px', marginRight: '10px'}}
+                 src={userUtils.getAvatarUrl(user)}/>
+            <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-around', overflow: 'hidden'}}>
+                <h3 style={{margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>{index}. {_.get(user, 'nickname')}</h3>
+                <p style={{margin: 0, overflow: 'auto'}}>
+                    <span style={{float: 'left', marginRight: '20px'}}>今日得分：{_.get(user, 'dayScore')}</span>
+                    <span style={{float: 'left'}}>历史得分：{_.get(user, 'score')}</span>
+                </p>
+            </div>
             <UserGameInfoModal show={this.state.showModal} onClose={this.closeModal.bind(this)}
                                userId={_.get(user, '_id')}/>
         </ListGroupItem>
