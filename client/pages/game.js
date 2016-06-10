@@ -151,8 +151,10 @@ class TargetUserNumberItem extends React.Component {
 
         return <ListGroupItem style={{display: 'flex', justifyContent: 'space-between'}}
                               onClick={this.fight.bind(this, _.get(user, '_id'))}>
-            <h1 onClick={e=>{e.stopPropagation();this.openModal()}}
-                style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginRight: '20px', minWidth: 0}}>{index + '. ' + _.get(user, 'username')}</h1>
+            <h1 style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginRight: '20px', minWidth: 0}}>
+                <span onClick={e=>{e.stopPropagation();this.openModal()}}>{index + '. '}</span>
+                {_.get(user, 'username')}
+            </h1>
             <h1>{_.get(user, 'number')}</h1>
             <UserGameInfoModal show={this.state.showModal} onClose={this.closeModal.bind(this)}
                                userId={_.get(user, '_id')}/>
