@@ -152,8 +152,8 @@ class TargetUserNumberItem extends React.Component {
         }
     }
 
-    shouldComponentUpdate(nextProps) {
-        return !(this.props.index === nextProps.index && _.isEqual(this.props.user, nextProps.user))
+    shouldComponentUpdate(nextProps, nextState) {
+        return !(this.props.index === nextProps.index && _.isEqual(this.props.user, nextProps.user) && this.state.showModal === nextState.showModal)
     }
 
     render() {
