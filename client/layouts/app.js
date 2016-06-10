@@ -36,9 +36,12 @@ class Layout extends React.Component {
                         {
                             user && <Nav pullRight>
                                 <NavDropdown title="设置" id="basic-nav-dropdown">
-                                    <MenuItem href="#" onClick={()=>this.setState({showChangePasswordModal:true})}>修改密码</MenuItem>
+                                    <MenuItem href="#" onClick={this.setNickname.bind(this)}>修改昵称</MenuItem>
+                                    <MenuItem href="#"
+                                              onClick={()=>this.setState({showChangePasswordModal:true})}>修改密码</MenuItem>
                                     <MenuItem href="#" onClick={()=>Meteor.logout()}>退出</MenuItem>
-                                    <ChangePasswordModal show={this.state.showChangePasswordModal} onClose={()=>this.setState({showChangePasswordModal:false})}/>
+                                    <ChangePasswordModal show={this.state.showChangePasswordModal}
+                                                         onClose={()=>this.setState({showChangePasswordModal:false})}/>
                                 </NavDropdown>
                             </Nav>
                         }
@@ -57,6 +60,25 @@ class Layout extends React.Component {
 
             </footer>
         </div>
+    }
+
+    setNickname() {
+        let nickname = prompt('请输入新昵称');
+        if (typeof nickname === 'string') {
+            nickname = nickname.trim();
+            if (!nickname) return Alert.error('昵称不能为空。');
+        }
+        else return;
+
+        Meteor.call('Users.setNickname', nickname, err=> {
+            if (err) {
+                console.error(err);
+                Alert.error('昵称设置失败。')
+            }
+            else {
+                Alert.success('昵称设置成功。')
+            }
+        })
     }
 
     goHome() {

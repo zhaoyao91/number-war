@@ -7,6 +7,21 @@ import _ from 'lodash';
 
 export default function () {
     Meteor.methods({
+        'Users.setNickname'(nickname) {
+            check(nickname, String);
+
+            const userId = Meteor.userId();
+            if (!userId) {
+                throw new Meteor.Error('not-login', 'user is not logged-in');
+            }
+
+            Users.update({_id: userId}, {
+                $set: {
+                    nickname: nickname
+                }
+            });
+        },
+
         'Game.fight'(targetUserId) {
             check(targetUserId, String);
 
