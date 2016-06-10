@@ -42,7 +42,7 @@ const utils = {
     },
 
     updateLoseNumber(loseNumber, winNumber) {
-        return utils.getNewNumber();
+        return Math.abs(winNumber - loseNumber) % NUMBER_LENGTH;
     }
 };
 
