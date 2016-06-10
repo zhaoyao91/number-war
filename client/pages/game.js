@@ -25,6 +25,12 @@ class Page extends React.Component {
         if (_.get(this.props.user, '_id') !== _.get(nextProps.user, '_id')) {
             setTimeout(()=>this.observeUserFight(nextProps.user), 0);
         }
+
+        this.scrollTop = document.body.scrollTop;
+    }
+
+    componentDidUpdate() {
+        document.body.scrollTop = this.scrollTop;
     }
 
     componentWillUnmount() {
@@ -46,7 +52,7 @@ class Page extends React.Component {
             <ListGroup style={{marginBottom: '101px'}}>
                 {
                     fighters.map((fighter, index)=> {
-                        return <TargetUserNumberItem key={index} index={index+1} user={fighter}/>
+                        return <TargetUserNumberItem key={fighter._id} index={index+1} user={fighter}/>
                     })
                 }
             </ListGroup>
