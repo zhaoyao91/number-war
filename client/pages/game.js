@@ -8,8 +8,9 @@ import Alert from 'react-s-alert';
 import UserGameInfoModal from '../app-comps/user-game-info-modal';
 import {FlowRouter} from 'meteor/kadira:flow-router';
 import userUtils from '../../common/utils/user';
-import {Session} from 'meteor/session';
 import Const from '../../common/const';
+
+let allowFight = true;
 
 class Page extends React.Component {
     componentWillMount() {
@@ -17,6 +18,7 @@ class Page extends React.Component {
 
         this.winAudio = new Audio('/audio/win.mp3');
         this.loseAudio = new Audio('/audio/lose.mp3');
+        allowFight = true;
     }
 
     componentWillUpdate(nextProps) {
@@ -30,7 +32,7 @@ class Page extends React.Component {
     }
 
     render() {
-        const {user, fighters, allowFight} = this.props;
+        const {user, fighters} = this.props;
 
         const number = _.get(user, 'number');
 
@@ -44,7 +46,7 @@ class Page extends React.Component {
             <ListGroup style={{marginBottom: '101px'}}>
                 {
                     fighters.map((fighter, index)=> {
-                        return <TargetUserNumberItem allowFight={allowFight} key={index} index={index+1} user={fighter}/>
+                        return <TargetUserNumberItem key={index} index={index+1} user={fighter}/>
                     })
                 }
             </ListGroup>
@@ -93,9 +95,8 @@ const Container = createContainer((props)=> {
 
     return {
         user: user,
-        fighters: fighters,
-        allowFight: Session.get('allowFight')
-    };
+        fighters: fighters
+    }
 }, Page);
 
 export default Container;
@@ -142,6 +143,7 @@ class UserNumberPanel extends React.Component {
     }
 }
 
+
 class TargetUserNumberItem extends React.Component {
     constructor(props) {
         super(props);
@@ -150,11 +152,15 @@ class TargetUserNumberItem extends React.Component {
         }
     }
 
+    shouldComponentUpdate(nextProps) {
+        return !(this.props.index === nextProps.index && _.isEqual(this.props.user, nextProps.user))
+    }
+
     render() {
-        const {index, user, allowFight} = this.props;
+        const {index, user} = this.props;
 
         return <ListGroupItem style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}
-                              onClick={this.fight.bind(this, _.get(user, '_id'))} disabled={!allowFight}>
+                              onClick={this.fight.bind(this, _.get(user, '_id'))}>
             <div style={{display: 'flex', alignItems: 'center', overflow: 'hidden'}}>
                 <span style={{position: 'absolute', fontSize: '0.8rem', top: 0, left: '2px'}}>{index}</span>
                 <img className="img-circle" onClick={e=>{e.stopPropagation();this.openModal()}}
@@ -179,9 +185,13 @@ class TargetUserNumberItem extends React.Component {
     }
 
     fight(userId) {
-        Session.set('allowFight', false);
+        if (!allowFight) {
+            return Alert.error('这也太快了吧>w<', {timeout: 1000});
+        }
+
+        allowFight = false;
         Meteor.call('Game.fight', userId, new Date, (err, win)=> {
-            setTimeout(()=>Session.set('allowFight', true), Const.fightInterval);
+            setTimeout(()=> {allowFight = true}, Const.fightInterval);
             if (err) {
                 if (err.error === 'too-many-requests') {
                     Alert.error('这也太快了吧>w<', {timeout: 1000})
