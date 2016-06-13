@@ -22,7 +22,7 @@ const utils = {
 
         if (fightMode === 'bigger') return reducedAttackNumber > reducedDefenceNumber;
         else if (fightMode === 'smaller') return reducedAttackNumber < reducedDefenceNumber;
-        else return false;
+        else return null;
     },
 
     reduceNumber(number) {

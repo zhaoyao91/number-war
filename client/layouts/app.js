@@ -112,6 +112,10 @@ class Layout extends React.Component {
 const Container = createContainer((props)=> {
     const user = Meteor.user();
 
+    //Meteor.user() false
+    //ActiveRoute.name('login') false
+    //Meteor.logginIn() false
+    //没有登录 && 当前user为空 && 当前路由不在login路径
     if (!Meteor.loggingIn() && !user && !ActiveRoute.name('login')) {
         FlowRouter.go('login');
     }

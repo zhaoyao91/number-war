@@ -27,14 +27,7 @@ export default function () {
         }
     });
 
-    route('/rank', {
-        name: 'rank',
-        action(p, q) {
-            mount(AppLayout, {
-                main: <RankPage />
-            })
-        }
-    });
+
 
     route('/help', {
         name: 'help',
@@ -42,6 +35,15 @@ export default function () {
             mount(AppLayout, {
                 main: <HelpPage />
             })
+        }
+    });
+
+    route('/rank', {
+        name: 'rank',
+        action(p, q) {
+            mount(AppLayout, {
+                    main: <RankPage />
+        })
         }
     });
 

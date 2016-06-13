@@ -11,20 +11,21 @@ import userUtils from '../../common/utils/user';
 import Const from '../../common/const';
 
 let allowFight = true;
+const winAudio = new Audio('/audio/win.mp3');
+const loseAudio = new Audio('/audio/lose.mp3');
 
 class Page extends React.Component {
     componentWillMount() {
-        this.observeUserFight(this.props.user);
-
-        this.winAudio = new Audio('/audio/win.mp3');
-        this.loseAudio = new Audio('/audio/lose.mp3');
-        allowFight = true;
+        //this.observeUserFight(this.props.user);
+        //this.winAudio = new Audio('/audio/win.mp3');
+        //this.loseAudio = new Audio('/audio/lose.mp3');
+        //allowFight = true;
     }
 
     componentWillUpdate(nextProps) {
-        if (_.get(this.props.user, '_id') !== _.get(nextProps.user, '_id')) {
-            setTimeout(()=>this.observeUserFight(nextProps.user), 0);
-        }
+        //if (_.get(this.props.user, '_id') !== _.get(nextProps.user, '_id')) {
+        //    setTimeout(()=>this.observeUserFight(nextProps.user), 0);
+        //}
 
         this.scrollTop = document.body.scrollTop;
     }
@@ -34,7 +35,7 @@ class Page extends React.Component {
     }
 
     componentWillUnmount() {
-        this.observer && this.observer.stop();
+        //this.observer && this.observer.stop();
     }
 
     render() {
@@ -61,33 +62,25 @@ class Page extends React.Component {
         </div>
     }
 
-    observeUserFight(user) {
-        const userId = _.get(user, '_id');
-
-        this.observer && this.observer.stop();
-        if (userId) {
-            this.noLastFight = !_.get(Users.findOne({_id: userId}), 'lastFight');
-            this.observer = Users.find({_id: userId}).observeChanges({
-                changed: (id, fields)=> {
-                    if (fields.lastFight) {
-                        if (this.noLastFight) {
-                            this.noLastFight = false;
-                        }
-                        else {
-                            if (fields.lastFight.result === 'win') {
-                                Alert.success(`你战胜了${fields.lastFight.nickname}。`, {timeout: 1000});
-                                this.winAudio.play();
-                            }
-                            else {
-                                Alert.info(`你败给了${fields.lastFight.nickname}。`, {timeout: 1000});
-                                this.loseAudio.play();
-                            }
-                        }
-                    }
-                }
-            });
-        }
-    }
+    //observeUserFight(user) {
+    //    const userId = _.get(user, '_id');
+    //    this.observer && this.observer.stop();
+    //    if (userId) {
+    //        this.observer = Users.find({_id: userId}).observeChanges({
+    //            changed: (id, fields)=> {
+    //                if (fields.lastFight) {
+    //                    if (fields.lastFight.result === 'win') {
+    //                        Alert.success(`你战胜了${fields.lastFight.nickname}。`, {timeout: 1000});
+    //                        this.winAudio.play();
+    //                    } else {
+    //                        Alert.info(`你败给了${fields.lastFight.nickname}。`, {timeout: 1000});
+    //                        this.loseAudio.play();
+    //                    }
+    //                }
+    //            }
+    //        });
+    //    }
+    //}
 }
 
 const Container = createContainer((props)=> {
@@ -165,18 +158,17 @@ class TargetUserNumberItem extends React.Component {
     render() {
         const {index, user} = this.props;
 
-        return <ListGroupItem style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}
-                              onClick={this.fight.bind(this, _.get(user, '_id'))}>
+        return <ListGroupItem style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
             <div style={{display: 'flex', alignItems: 'center', overflow: 'hidden'}}>
                 <span style={{position: 'absolute', fontSize: '0.8rem', top: 0, left: '2px'}}>{index}</span>
                 <img className="img-circle" onClick={e=>{e.stopPropagation();this.openModal()}}
                      style={{width: '48px', height: '48px', marginRight: '5px'}}
                      src={userUtils.getAvatarUrl(user)}/>
-                <h1 style={{margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginRight: '5px', minWidth: 0}}>
+                <h1 style={{margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginRight: '5px', minWidth: 0}} onClick={this.fight.bind(this, _.get(user, '_id'))}>
                     {_.get(user, 'nickname')}
                 </h1>
             </div>
-            <h1 style={{margin: 0}}>{_.get(user, 'number')}</h1>
+            <h1 style={{margin: 0}} onClick={this.fight.bind(this, _.get(user, '_id'))}>{_.get(user, 'number')}</h1>
             <UserGameInfoModal show={this.state.showModal} onClose={this.closeModal.bind(this)}
                                userId={_.get(user, '_id')}/>
         </ListGroupItem>
@@ -194,18 +186,25 @@ class TargetUserNumberItem extends React.Component {
         if (!allowFight) {
             return Alert.error('这也太快了吧>w<', {timeout: 1000});
         }
-
         allowFight = false;
-        Meteor.call('Game.fight', userId, new Date, (err, win)=> {
+        Meteor.call('Game.fight', userId, new Date, (err, {win,nickname})=> {
+            console.log(win);
+            if(win){
+                //win
+                winAudio.play();
+                Alert.success(`你战胜了${nickname}。`, {timeout: 1000});
+            }else{
+                if(win === null){
+                    Alert.error('游戏失败。');
+                }else{
+                    loseAudio.play();
+                    Alert.info(`你败给了${nickname}。`, {timeout: 1000});
+                }
+            }
             setTimeout(()=> {allowFight = true}, Const.fightInterval);
             if (err) {
-                if (err.error === 'too-many-requests') {
-                    Alert.error('这也太快了吧>w<', {timeout: 1000})
-                }
-                else {
-                    Alert.error('游戏失败。');
-                    console.error(err);
-                }
+                Alert.error('游戏失败。');
+                console.error(err);
             }
         })
     }
