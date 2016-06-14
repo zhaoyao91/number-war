@@ -5,8 +5,8 @@ export default function () {
         service: "wechat-mp"
     }, {
         $set: {
-            appId: 'wxcda6b0f59aaae1d8',
-            secret: 'ffc0b67f4f10099cd457a2e469b7ea4b',
+            appId: process.env.WECHAT_MP_APPID,
+            secret: process.env.WECHAT_MP_SECRET,
             scope: 'base_userinfo',
             loginStyle: 'redirect',
             mainId: 'openId'
