@@ -34,7 +34,7 @@ class Page extends React.Component {
                     </FormGroup>
 
                     <Button bsStyle="primary" style={{width: '100%'}} type="submit">注册 / 登录</Button>
-                    <Button onClick={this.loginWithWechatMP.bind(this)}>使用微信登录</Button>
+                    <Button bsStyle="success" style={{width: '100%', marginTop: '15px'}} onClick={this.loginWithWechatMP.bind(this)}>使用微信登录</Button>
                 </form>
             </Panel>
         </div>
