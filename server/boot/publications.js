@@ -8,7 +8,8 @@ export default function () {
             fields: {
                 wechatUser: 1,
                 avatar: 1,
-                nickname: 1
+                nickname: 1,
+                lastFight: 1
             }
         })
     });

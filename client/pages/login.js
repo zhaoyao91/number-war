@@ -5,6 +5,7 @@ import {Accounts} from 'meteor/accounts-base';
 import Alert from 'react-s-alert';
 import {FlowRouter} from 'meteor/kadira:flow-router';
 import clientUtils from '../../common/utils/client';
+import {createContainer} from 'meteor/react-meteor-data';
 
 class Page extends React.Component {
     constructor(props) {
@@ -98,4 +99,15 @@ class Page extends React.Component {
     }
 }
 
-export default Page;
+const Container = createContainer(function (props) {
+    const sub = Meteor.subscribe('Users.me');
+    const user = Meteor.user();
+    if (sub.ready() && user && user.wechatUser) {
+        if (user.lastFight) FlowRouter.go('game');
+        else FlowRouter.go('help');
+    }
+
+    return {}
+}, Page);
+
+export default Container;
