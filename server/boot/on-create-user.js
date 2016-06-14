@@ -14,6 +14,7 @@ export default function () {
         user.number = GameUtils.getNewNumber();
         user.fightMode = GameUtils.getRandomFightMode();
         user.fightOrder = 0;
+        user.wechatUser = !!_.get(user, 'services.wechat-mp');
         
         return user;
     })

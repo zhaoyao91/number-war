@@ -40,6 +40,11 @@ const schema = new SimpleSchema({
 
     // game data
 
+    wechatUser: {
+        type: Boolean,
+        optional: true
+    },
+
     nickname: {
         type: String
     },

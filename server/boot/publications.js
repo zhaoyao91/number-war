@@ -3,6 +3,16 @@ import {Meteor} from 'meteor/meteor';
 import {check} from 'meteor/check';
 
 export default function () {
+    Meteor.publish('Users.me', function () {
+        return Users.find({_id: this.userId}, {
+            fields: {
+                wechatUser: 1,
+                avatar: 1,
+                nickname: 1
+            }
+        })
+    });
+
     Meteor.publish('Users.fighters', function () {
         return Users.find({}, {
             fields: {
@@ -31,6 +41,7 @@ export default function () {
             fields: {
                 number: 1,
                 avatar: 1,
+                nickname: 1,
                 fightMode: 1,
                 winCount: 1,
                 loseCount: 1,

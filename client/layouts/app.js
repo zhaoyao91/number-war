@@ -6,6 +6,7 @@ import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
 import {ActiveRoute} from 'meteor/zimme:active-route';
 import ChangePasswordModal from '../app-comps/change-password-modal';
+import _ from 'lodash';
 
 class Layout extends React.Component {
     constructor(props) {
@@ -35,15 +36,19 @@ class Layout extends React.Component {
                         </Nav>
                         {
                             user && <Nav pullRight>
-                                <NavDropdown title="设置" id="basic-nav-dropdown">
-                                    <MenuItem href="#" onClick={this.setNickname.bind(this)}>修改昵称</MenuItem>
-                                    <MenuItem href="#" onClick={this.setAvatar.bind(this)}>修改头像</MenuItem>
-                                    <MenuItem href="#"
-                                              onClick={()=>this.setState({showChangePasswordModal:true})}>修改密码</MenuItem>
-                                    <MenuItem href="#" onClick={()=>Meteor.logout()}>退出</MenuItem>
-                                    <ChangePasswordModal show={this.state.showChangePasswordModal}
-                                                         onClose={()=>this.setState({showChangePasswordModal:false})}/>
-                                </NavDropdown>
+                                {
+                                    user.wechatUser ?
+                                        <NavItem href="#" onClick={()=>Meteor.logout()}>退出</NavItem> :
+                                        <NavDropdown title="设置" id="basic-nav-dropdown">
+                                            <MenuItem href="#" onClick={this.setNickname.bind(this)}>修改昵称</MenuItem>
+                                            <MenuItem href="#" onClick={this.setAvatar.bind(this)}>修改头像</MenuItem>
+                                            <MenuItem href="#"
+                                                      onClick={()=>this.setState({showChangePasswordModal:true})}>修改密码</MenuItem>
+                                            <MenuItem href="#" onClick={()=>Meteor.logout()}>退出</MenuItem>
+                                            <ChangePasswordModal show={this.state.showChangePasswordModal}
+                                                                 onClose={()=>this.setState({showChangePasswordModal:false})}/>
+                                        </NavDropdown>
+                                }
                             </Nav>
                         }
                     </Navbar.Collapse>
@@ -110,6 +115,8 @@ class Layout extends React.Component {
 }
 
 const Container = createContainer((props)=> {
+    Meteor.subscribe('Users.me');
+
     const user = Meteor.user();
 
     if (!Meteor.loggingIn() && !user && !ActiveRoute.name('login')) {
