@@ -49,7 +49,7 @@ class Page extends React.Component {
 
             <p style={{marginBottom: '20px'}}>打累了？<a href={FlowRouter.path('rank')}>看看排行~</a></p>
 
-            <ListGroup style={{marginBottom: '101px'}}>
+            <ListGroup style={{marginBottom: '71px'}}>
                 {
                     fighters.map((fighter, index)=> {
                         return <TargetUserNumberItem key={fighter._id} index={index+1} user={fighter}/>
@@ -124,7 +124,7 @@ class UserNumberPanel extends React.Component {
                 style={{marginBottom: 0, backgroundColor: '#eeeeee', cursor: 'pointer'}}
                 onClick={this.openModal.bind(this)}>
                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                    <h1 style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginRight: '20px', minWidth: 0}}>
+                    <h1 style={{margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginRight: '20px', minWidth: 0}}>
                         {
                             !fightMode ? null
                                 : fightMode === 'smaller' ? '比小'
@@ -132,7 +132,7 @@ class UserNumberPanel extends React.Component {
                                 : null
                         }
                     </h1>
-                    <h1>{_.get(user, 'number')}</h1>
+                    <h1 style={{margin: 0}}>{_.get(user, 'number')}</h1>
                 </div>
                 <UserGameInfoModal show={this.state.showModal} onClose={this.closeModal.bind(this)}
                                    userId={_.get(user, '_id')}/>
@@ -148,7 +148,6 @@ class UserNumberPanel extends React.Component {
         this.setState({showModal: false})
     }
 }
-
 
 class TargetUserNumberItem extends React.Component {
     constructor(props) {
