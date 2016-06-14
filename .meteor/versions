@@ -1,4 +1,5 @@
 accounts-base@1.2.7
+accounts-oauth@1.1.12
 accounts-password@1.1.8
 aldeed:collection2@2.9.1
 aldeed:collection2-core@1.1.1
@@ -60,6 +61,8 @@ mongo-id@1.0.4
 msavin:mongol@2.0.1
 npm-bcrypt@0.8.5
 npm-mongo@1.4.43
+oauth@1.1.10
+oauth2@1.1.9
 observe-sequence@1.0.11
 ordered-dict@1.0.7
 promise@0.6.7
@@ -90,4 +93,6 @@ underscore@1.0.8
 url@1.0.9
 webapp@1.2.8
 webapp-hashing@1.0.9
+zhaoyao91:accounts-wechat-mp@0.0.1_2
+zhaoyao91:short-oauth-state@0.0.1_4
 zimme:active-route@2.3.2

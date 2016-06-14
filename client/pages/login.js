@@ -34,9 +34,22 @@ class Page extends React.Component {
                     </FormGroup>
 
                     <Button bsStyle="primary" style={{width: '100%'}} type="submit">注册 / 登录</Button>
+                    <Button onClick={this.loginWithWechatMP.bind(this)}>使用微信登录</Button>
                 </form>
             </Panel>
         </div>
+    }
+
+    loginWithWechatMP() {
+        Meteor.loginWithWeChatMP((err, res)=> {
+            if (err) {
+                Alert.error('登录失败。');
+                console.error(err);
+            }
+            else {
+                console.log(res);
+            }
+        })
     }
 
     login() {
