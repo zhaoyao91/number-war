@@ -124,7 +124,7 @@ class UserNumberPanel extends React.Component {
                 style={{marginBottom: 0, backgroundColor: '#eeeeee', cursor: 'pointer'}}
                 onClick={this.openModal.bind(this)}>
                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                    <h1 style={{margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginRight: '20px', minWidth: 0}}>
+                    <h1 style={{margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', minWidth: 0, flexGrow: 1}}>
                         {
                             !fightMode ? null
                                 : fightMode === 'smaller' ? '比小'
@@ -166,7 +166,7 @@ class TargetUserNumberItem extends React.Component {
 
         return <ListGroupItem style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}
                               onClick={this.fight.bind(this, _.get(user, '_id'))}>
-            <div style={{display: 'flex', alignItems: 'center', overflow: 'hidden'}}>
+            <div style={{display: 'flex', alignItems: 'center', overflow: 'hidden', minWidth: 0, flexGrow: 1}}>
                 <span style={{position: 'absolute', fontSize: '0.8rem', top: 0, left: '2px'}}>{index}</span>
                 <img className="img-circle" onClick={e=>{e.stopPropagation();this.openModal()}}
                      style={{width: '48px', height: '48px', marginRight: '5px'}}
